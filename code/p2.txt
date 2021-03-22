@@ -1,0 +1,40 @@
+snowStorm storm1;
+ArrayList<SnowFlake> snowFlakes = new ArrayList<SnowFlake>();
+int timer;    
+float x, y, r, g, b, radius;
+  float xpos = random(width);
+  float ypos = random(height);
+  float rSZ = random(20,90);
+  float rot = random (0,360);
+  void setup() {
+ frameRate(30);
+    size(1920,1080);
+    smooth();
+    colorMode(RGB, 1);
+    frameRate(12);
+    storm1 = new snowStorm (color(0,0,255), width/2, height/2);
+   for (int i = 0; i < 200; i++) {
+    snowFlakes.add(new SnowFlake(xpos,ypos,rSZ));
+  }
+
+  }
+  
+  void draw(){
+    //if (millis() - timer >= 1) {
+    //y = random(height*2);
+    //timer = millis();}
+  background(255);
+  storm1.update();
+   for (SnowFlake snowFlake : snowFlakes) {
+    snowFlake.render();
+  }
+
+  //     if (frameCount <  600 ) {
+    
+  //  saveFrame("images/TANK_####.png");
+    
+  //} else {
+    
+  //  exit();  
+  //} 
+    }

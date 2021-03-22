@@ -1,0 +1,129 @@
+char currentkey ='1';
+color bgc = color(0);
+
+void setup() {
+  size(1000, 1000);
+  background(0);
+  smooth();
+}
+
+
+void draw() {
+
+  if (keyPressed) {
+    clear_print();
+  }
+  if (mousePressed) {
+    lineChoice();
+  }
+   // if (frameCount <  300 ) {
+
+//    saveFrame("images/thename_####.png");
+
+//  } else {
+
+//    exit();
+//  }
+}
+
+void lineChoice () {
+  char currentkey = key;
+
+
+  switch(currentkey) {
+  case '1':// low opacity red
+    println("1");
+    stroke(255); 
+    fill (255, 0, 0, 5);
+    cGlowOpcircle(mouseX, mouseY, pmouseX, pmouseY);
+    break;
+  case '2':// spraypaint
+    println("2");
+    fill(105, 0, 100, 10);
+    cGeye(mouseX, mouseY, pmouseX, pmouseY);
+    break;
+  case '3':// rainbo line
+    println("2");
+    cGrainboLine (color(HSB, random(255), random(255), random(255)), mouseX, mouseY, pmouseX, pmouseY);
+    break;
+  case '4':// low opacity blue
+    println("2");
+    stroke(255); 
+    fill (1, 0, 30, 5);
+    cGlowOpcircle(mouseX/2, mouseY/2, pmouseX, pmouseY);
+    break;
+    case '5':// low opacity green
+    println("2");
+    stroke(255); 
+    fill (1, 100, 0, 5);
+    cGlowOpcircle(mouseX, mouseY, pmouseX, pmouseY);
+    break;
+    case '6':// low opacity red
+    println("1");
+    stroke(255); 
+    fill (100, 100, 255, 51);
+    cGlowOprect(mouseX, mouseY, random(255), random(255));
+    break;
+  case '7':
+    println("2");
+    noStroke();
+    eraser(bgc, mouseX, mouseY, 105);
+    break;
+  default:
+    println("None");
+    break;
+  }
+}
+
+
+
+
+
+void cGlowOprect(float xpos, float ypos, float width, float height) {
+  rect( xpos, ypos, width, height);
+}
+void cGlowOpcircle(int xpos, int ypos, float width, float height) {
+  ellipse( xpos, ypos, width, height);
+}
+void cGlowOpcircle2(int xpos, int ypos, float width, float height) {
+  ellipse( xpos, ypos, width, height);
+}
+void cGlowOpcircle3(int xpos, int ypos, float width, float height) {
+  ellipse( xpos, ypos, width, height);
+}
+void cGrainboLine(color c, int ax, int ay, int px, int py) {
+  strokeWeight(20);
+  stroke(c);
+  line(ax, ay, px, py);
+}
+void cGeye(int xpos, int ypos, float width, float height) {
+  float r = random(50);
+  float rloop = random(20);
+  for (int i = 0; i < r; i++) {
+     fill(r+190, rloop+100, random(100),20);
+    ellipse(xpos, ypos, random(width/2), random(height/2));
+  }
+}
+     
+     //ellipse( xpos, ypos, width*0.5, height*0.5);
+     //width*= 0.5;
+     //height*= 0.5;
+  
+  //ellipse( xpos, ypos, width, height);
+//}
+void eraser(color k, int lx, int ly, int sz) {
+  fill(k);
+  ellipse(lx, ly, sz, sz);
+}
+
+
+
+void clear_print() {
+  if (key == 'x' || key == 'X') {
+    background(0);
+  } else if (key == 'p' || key == 'P') {
+    saveFrame("x_xxx_####.png");
+
+    delay(500);
+  }
+}

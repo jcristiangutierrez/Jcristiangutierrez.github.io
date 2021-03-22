@@ -1,0 +1,36 @@
+class SnowFlake{
+      float rot = random (0,360);
+
+  SnowFlake(float tempXpos, float tempYpos, float randWH){
+    xpos = tempXpos;
+    ypos = tempYpos;
+    rSZ = randWH;
+
+  
+    
+    
+  }
+  
+
+  void render(){
+    pushMatrix();
+     fill(255,255,255,255);
+ rotate(radians(rot));
+
+     ypos = random(height);
+     xpos = random(width);
+   ypos++;
+   xpos++;
+
+   //if(ypos > height/2){
+   //   ypos = 0;
+   //}
+   //if (xpos > width/2) {
+   
+   //   xpos = 0; 
+   //}
+      ellipse(xpos, ypos, rSZ, rSZ);
+     popMatrix();
+
+  }
+}

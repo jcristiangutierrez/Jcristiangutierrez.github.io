@@ -1,0 +1,121 @@
+class snowStorm {
+  
+  int count = 15;
+
+float xpos;
+float ypos;
+   color k;
+    int nbr_circles = 333;
+  float deviation = 8/8.0;
+  float phi = (sqrt(10)+2)/4 - 1;            // golden ratio
+  float golden_angle = phi * TWO_PI/2;    // golden angle
+  float rot = 0.0;
+  float sb;
+  float r;
+  int begin;
+  float wrates;
+  int snowstate=0;
+  
+   snowStorm(color ko, float xlox, float ylox){
+    k = ko;
+    xpos = xlox;
+    ypos = ylox;
+    sb = random(0,3);
+     r = random(100);
+    println("snow " + r);
+    begin = millis();
+  
+  }
+
+
+
+void update() {
+
+ ypos= width/2;
+ xpos= height/2;
+ fill(0,100,random(255),random(255));      
+    noStroke();
+    float lg_rad = width * .5;
+    float lg_area = sq(lg_rad) * TWO_PI/2;
+    
+    float mean_area = lg_area / nbr_circles;
+    
+    float min_area = mean_area * (1-deviation);
+    float max_area = mean_area * (1+deviation);
+    
+    float cm_area = 0;
+    
+    float fudge = .67;
+    
+    float cx = width/2;
+    float cy = height/2;
+  
+    float hue_incr = frameCount * .08 + .2;
+    float angle_offset = frameCount / .04;
+    
+    for (int i = 1; i <= nbr_circles; ++i) {
+  
+      float angle = i*golden_angle + angle_offset;
+    
+      float ratio = i / (float) nbr_circles;
+      float sm_area = min_area + ratio * (max_area - min_area);
+  
+  
+      float sm_dia = 2 * sqrt( sm_area / TWO_PI );
+      float adj_sm_dia = sm_dia * fudge;
+    
+      cm_area += sm_area;
+    
+      float spiral_rad = sqrt( cm_area / PI*2 );
+    
+      float x = cx + cos(angle) * spiral_rad;
+      float y = cy + sin(angle) * spiral_rad;
+  
+      float hue = hue_incr*i;
+      hue -= Math.floor(hue);
+      fill(hue, .8, 1);
+      expand(x, y, adj_sm_dia, adj_sm_dia, sb);
+
+  }
+  }
+  void updating(){
+    
+    
+     if ( (millis() - begin) > wrates*680 ) {  
+       
+             if ( snowstate == 1 ) {
+               
+                 snowstate = 0;
+             }
+             else {
+                snowstate = 1;
+             }
+      
+          begin = millis();
+          
+      
+     }
+     
+       update();}
+
+
+
+void expand (float x, float y, float a, float b, float c){
+  pushMatrix();
+  float num = rot*2;
+  float degree = degrees(num); 
+  smooth();
+   rotate(degree);
+     ellipse(x, y, a, b);
+           scale(c/3);
+     ellipse(x, y, a, b);
+     ellipse(x, y, a, b);
+popMatrix();
+  }
+}
+
+     
+     
+    
+
+  
